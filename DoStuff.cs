@@ -6,6 +6,7 @@ namespace CarStore
     {
         private readonly string filePath = "cars.json";
         private readonly List<Car> carList = [];
+        //private List<Car> filteredCars = [];
         private double currencyRate = 1.0;
         private string currencyName = "USD";
         private double distanceType = 1.0;
@@ -65,6 +66,38 @@ namespace CarStore
                 WriteColoredLine($"{priceSegment.Key} - {priceSegment.Key + 10000}", ConsoleColor.DarkYellow);
                 PrintCars(priceSegment.ToList());
             }
+        }
+
+        public void FilterCars()
+        {
+            List<Car> filteredCars = [];
+           
+            filteredCars = applyFilter("brand", filteredCars);
+            PrintCars(filteredCars);
+         
+        }
+
+        public List<Car> applyFilter(string filter, List<Car> filteredCars)
+        {
+            Console.WriteLine("Enter a " + filter);
+            var input = Console.ReadLine().ToLower().Trim();
+
+            switch (filter)
+            {
+                case "brand":
+                    filteredCars = carList.Where(b => b.Brand.ToLower() == input).ToList();
+                    break;
+                case "model":
+                    filteredCars = carList.Where(b => b.Model.ToLower() == input).ToList();
+                    break;
+                case "year":
+                    filteredCars = carList.Where(b => (b.Properties.Year == int.Parse(input))).ToList();
+                    break;
+                default:
+                    break;
+            }
+            return filteredCars;
+
         }
 
         public string GetTableHeader(string currencyName)
@@ -140,6 +173,10 @@ namespace CarStore
                         WriteColoredLine("Changing currency and distance type", ConsoleColor.DarkYellow);
                         ChangeCurrency();
                         break;
+                    case ConsoleKey.D5:
+                        WriteColoredLine("Starting filter", ConsoleColor.DarkYellow);
+                        FilterCars();
+                        break;
                     case ConsoleKey.Q:
                         shouldRun = false;
                         WriteColoredLine("Press any key to exit!", ConsoleColor.DarkYellow);
@@ -163,6 +200,7 @@ namespace CarStore
             WriteColoredLine("2 - Print cars paginated", ConsoleColor.DarkYellow);
             WriteColoredLine("3 - Print cars grouped by price", ConsoleColor.DarkYellow);
             WriteColoredLine("4 - Change currency and distance type", ConsoleColor.DarkYellow);
+            WriteColoredLine("5 - Apply filter and list matching cars", ConsoleColor.DarkYellow);
             WriteColoredLine("q - Quit", ConsoleColor.DarkYellow);
         }
     }
