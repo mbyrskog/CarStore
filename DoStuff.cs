@@ -100,9 +100,20 @@ namespace CarStore
 
         public void ResetFilter()
         {
-            StreamReader r = new StreamReader(filePath);
-            var json = r.ReadToEnd();
-            carList = JsonConvert.DeserializeObject<List<Car>>(json);
+            Console.WriteLine("Reset filter? yes/no");
+            string input = Console.ReadLine().ToUpper().Trim();
+            if (input == "YES" || input == "Y")
+            {
+                StreamReader r = new StreamReader(filePath);
+                var json = r.ReadToEnd();
+                carList = JsonConvert.DeserializeObject<List<Car>>(json);
+                WriteColoredLine("Filter is reset, print cars again to see all cars", ConsoleColor.DarkYellow);
+            }
+            else
+            {
+                WriteColoredLine("Filter is not reset", ConsoleColor.DarkYellow);
+                return;
+            }
         }
 
         public string GetTableHeader(string currencyName)
@@ -183,7 +194,7 @@ namespace CarStore
                         FilterCars();
                         break;
                     case ConsoleKey.D6:
-                        WriteColoredLine("Filter is reset, print cars again to see all cars", ConsoleColor.DarkYellow);
+                        WriteColoredLine("Reset filter", ConsoleColor.DarkYellow);
                         ResetFilter();
                         break;
                     case ConsoleKey.Q:
