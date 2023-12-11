@@ -5,8 +5,7 @@ namespace CarStore
     public class DoStuff : IDoStuff
     {
         private readonly string filePath = "cars.json";
-        private readonly List<Car> carList = [];
-        //private List<Car> filteredCars = [];
+        private List<Car> carList = [];
         private double currencyRate = 1.0;
         private string currencyName = "USD";
         private double distanceType = 1.0;
@@ -18,11 +17,11 @@ namespace CarStore
             carList = JsonConvert.DeserializeObject<List<Car>>(json);
         }
 
-        public void PrintCars(IEnumerable<Car> carStore)
+        public void PrintCars(IEnumerable<Car> carList)
         {
             WriteColoredLine(GetTableHeader(currencyName), ConsoleColor.DarkYellow);
 
-            foreach (var item in carStore)
+            foreach (var item in carList)
             {
                 Console.Write(item.Brand.PadRight(20) + item.Model.PadRight(20));
                 Console.Write(item.Properties.Year.ToString().PadRight(20));
@@ -70,34 +69,40 @@ namespace CarStore
 
         public void FilterCars()
         {
-            List<Car> filteredCars = [];
-           
-            filteredCars = applyFilter("brand", filteredCars);
-            PrintCars(filteredCars);
-         
-        }
+            Console.WriteLine("What do you want to filter out? Available options are 'brand', 'model', 'year' (from), 'mileage' (maximum)");
+            var choice = Console.ReadLine().ToLower().Trim();
 
-        public List<Car> applyFilter(string filter, List<Car> filteredCars)
-        {
-            Console.WriteLine("Enter a " + filter);
+            Console.WriteLine("Enter a " + choice);
             var input = Console.ReadLine().ToLower().Trim();
 
-            switch (filter)
+            foreach (var car in carList)
             {
-                case "brand":
-                    filteredCars = carList.Where(b => b.Brand.ToLower() == input).ToList();
-                    break;
-                case "model":
-                    filteredCars = carList.Where(b => b.Model.ToLower() == input).ToList();
-                    break;
-                case "year":
-                    filteredCars = carList.Where(b => (b.Properties.Year == int.Parse(input))).ToList();
-                    break;
-                default:
-                    break;
+                if (choice == "brand")
+                {
+                    carList = carList.Where(b => b.Brand.ToLower() == input).ToList();
+                }
+                if (choice == "model")
+                {
+                    carList = carList.Where(b => b.Model.ToLower() == input).ToList();
+                }
+                if (choice == "year")
+                {
+                    carList = carList.Where(b => (b.Properties.Year >= int.Parse(input))).ToList();
+                }
+                if (choice == "mileage")
+                {
+                    carList = carList.Where(b => (b.Properties.Mileage <= int.Parse(input))).ToList();
+                }
             }
-            return filteredCars;
 
+            PrintCars(carList);
+        }
+
+        public void ResetFilter()
+        {
+            StreamReader r = new StreamReader(filePath);
+            var json = r.ReadToEnd();
+            carList = JsonConvert.DeserializeObject<List<Car>>(json);
         }
 
         public string GetTableHeader(string currencyName)
@@ -174,8 +179,12 @@ namespace CarStore
                         ChangeCurrency();
                         break;
                     case ConsoleKey.D5:
-                        WriteColoredLine("Starting filter", ConsoleColor.DarkYellow);
+                        WriteColoredLine("Applying filter", ConsoleColor.DarkYellow);
                         FilterCars();
+                        break;
+                    case ConsoleKey.D6:
+                        WriteColoredLine("Filter is reset, print cars again to see all cars", ConsoleColor.DarkYellow);
+                        ResetFilter();
                         break;
                     case ConsoleKey.Q:
                         shouldRun = false;
@@ -201,6 +210,7 @@ namespace CarStore
             WriteColoredLine("3 - Print cars grouped by price", ConsoleColor.DarkYellow);
             WriteColoredLine("4 - Change currency and distance type", ConsoleColor.DarkYellow);
             WriteColoredLine("5 - Apply filter and list matching cars", ConsoleColor.DarkYellow);
+            WriteColoredLine("6 - Reset filter", ConsoleColor.DarkYellow);
             WriteColoredLine("q - Quit", ConsoleColor.DarkYellow);
         }
     }
