@@ -12,8 +12,17 @@ namespace CarStore
 
         public DoStuff()
         {
-            StreamReader r = new StreamReader(filePath);
-            var json = r.ReadToEnd();
+            Console.WindowWidth = 200;
+            Console.WindowHeight = 50;
+            ReadJsonFile(filePath);
+        }
+
+        public void ReadJsonFile(string filePath)
+        {
+            carList.Clear();
+            var reader = new StreamReader(filePath);
+            reader.DiscardBufferedData();
+            var json = reader.ReadToEnd();
             carList = JsonConvert.DeserializeObject<List<Car>>(json);
         }
 
@@ -25,6 +34,7 @@ namespace CarStore
             {
                 Console.Write(item.Brand.PadRight(20) + item.Model.PadRight(20));
                 Console.Write(item.Properties.Year.ToString().PadRight(20));
+                Console.Write(item.Category.PadRight(20) + item.Properties.Transmission.PadRight(20));
                 Console.Write(Math.Round((item.Properties.Mileage * distanceType), 2).ToString().PadRight(20));
                 Console.WriteLine((string.Format("{0:0.00}", item.Price * currencyRate) + " " + currencyName));
                 Thread.Sleep(20);
@@ -69,30 +79,45 @@ namespace CarStore
 
         public void FilterCars()
         {
-            Console.WriteLine("What do you want to filter out? Available options are 'brand', 'model', 'year' (from), 'mileage' (maximum)");
+            string[] availableChoices = ["brand", "model", "category", "transmission", "year (from)", "mileage (max)"];
+            Console.WriteLine("Available options to filter out are " + string.Join(", ", availableChoices));
+            Console.WriteLine("Enter a option: ");
+
             var choice = Console.ReadLine().ToLower().Trim();
+
+            if (!availableChoices.Any(d => d.Split(" ")[0].ToLower().Trim() == d))
+            {
+                WriteColoredLine("Invalid option", ConsoleColor.Red);
+                return;
+            }
+
 
             Console.WriteLine("Enter a " + choice);
             var input = Console.ReadLine().ToLower().Trim();
 
-            foreach (var car in carList)
+            if (choice == "brand")
             {
-                if (choice == "brand")
-                {
-                    carList = carList.Where(b => b.Brand.ToLower() == input).ToList();
-                }
-                if (choice == "model")
-                {
-                    carList = carList.Where(b => b.Model.ToLower() == input).ToList();
-                }
-                if (choice == "year")
-                {
-                    carList = carList.Where(b => (b.Properties.Year >= int.Parse(input))).ToList();
-                }
-                if (choice == "mileage")
-                {
-                    carList = carList.Where(b => (b.Properties.Mileage <= int.Parse(input))).ToList();
-                }
+                carList = carList.Where(b => b.Brand.ToLower() == input).ToList();
+            }
+            if (choice == "model")
+            {
+                carList = carList.Where(b => b.Model.ToLower() == input).ToList();
+            }
+            if (choice == "year")
+            {
+                carList = carList.Where(b => (b.Properties.Year >= int.Parse(input))).ToList();
+            }
+            if (choice == "category")
+            {
+                carList = carList.Where(b => b.Category.ToLower() == input).ToList();
+            }
+            if (choice == "transmission")
+            {
+                carList = carList.Where(b => b.Properties.Transmission.ToLower() == input).ToList();
+            }
+            if (choice == "mileage")
+            {
+                carList = carList.Where(b => (b.Properties.Mileage <= int.Parse(input))).ToList();
             }
 
             PrintCars(carList);
@@ -104,9 +129,7 @@ namespace CarStore
             string input = Console.ReadLine().ToUpper().Trim();
             if (input == "YES" || input == "Y")
             {
-                StreamReader r = new StreamReader(filePath);
-                var json = r.ReadToEnd();
-                carList = JsonConvert.DeserializeObject<List<Car>>(json);
+                ReadJsonFile(filePath);
                 WriteColoredLine("Filter is reset, print cars again to see all cars", ConsoleColor.DarkYellow);
             }
             else
@@ -118,7 +141,13 @@ namespace CarStore
 
         public string GetTableHeader(string currencyName)
         {
-            return ("Brand".PadRight(20) + "Model".PadRight(20) + "Year".PadRight(20) +
+            return
+                (
+                "Brand".PadRight(20) +
+                "Model".PadRight(20) +
+                "Year".PadRight(20) +
+                "Category".PadRight(20) +
+                "Transmission".PadRight(20) +
                 (currencyName == "USD" || currencyName == "GBP" ? "Miles".PadRight(20) : "Mil".PadRight(20)) + "Price");
         }
 

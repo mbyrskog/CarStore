@@ -2,6 +2,7 @@
 {
     public interface IDoStuff
     {
+        void ReadJsonFile(string filePath);
         void PrintCars(IEnumerable<Car> carList);
         void PrintCarsPaginated(int pageSize);
         void PrintCarsGroupedByPrice();
