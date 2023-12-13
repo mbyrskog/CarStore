@@ -12,12 +12,13 @@ namespace CarStore
 
         public DoStuff()
         {
-            Console.WindowWidth = 200;
-            Console.WindowHeight = 50;
-            ReadJsonFile(filePath);
+            //Console.WindowWidth = Console.LargestWindowWidth;
+            //Console.WindowHeight = Console.LargestWindowHeight;
+            //Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
+            ReadAndResetJsonFile(filePath);
         }
 
-        public void ReadJsonFile(string filePath)
+        public void ReadAndResetJsonFile(string filePath)
         {
             carList.Clear();
             var reader = new StreamReader(filePath);
@@ -79,43 +80,42 @@ namespace CarStore
 
         public void FilterCars()
         {
-            string[] availableChoices = ["brand", "model", "category", "transmission", "year (from)", "mileage (max)"];
+            string[] availableChoices = ["brand", "model", "year (from)", "category", "transmission", "mileage (max)"];
             Console.WriteLine("Available options to filter out are " + string.Join(", ", availableChoices));
             Console.WriteLine("Enter a option: ");
 
-            var choice = Console.ReadLine().ToLower().Trim();
+            var choiceInput = Console.ReadLine().ToLower().Trim();
 
-            if (!availableChoices.Any(d => d.Split(" ")[0].ToLower().Trim() == d))
+            if (!availableChoices.Any(choice => choice.Split(" ")[0].ToLower().Trim() == choice))
             {
                 WriteColoredLine("Invalid option", ConsoleColor.Red);
                 return;
             }
 
-
-            Console.WriteLine("Enter a " + choice);
+            Console.WriteLine("Enter a " + choiceInput);
             var input = Console.ReadLine().ToLower().Trim();
 
-            if (choice == "brand")
+            if (choiceInput == "brand")
             {
                 carList = carList.Where(b => b.Brand.ToLower() == input).ToList();
             }
-            if (choice == "model")
+            if (choiceInput == "model")
             {
                 carList = carList.Where(b => b.Model.ToLower() == input).ToList();
             }
-            if (choice == "year")
+            if (choiceInput == "year")
             {
                 carList = carList.Where(b => (b.Properties.Year >= int.Parse(input))).ToList();
             }
-            if (choice == "category")
+            if (choiceInput == "category")
             {
                 carList = carList.Where(b => b.Category.ToLower() == input).ToList();
             }
-            if (choice == "transmission")
+            if (choiceInput == "transmission")
             {
                 carList = carList.Where(b => b.Properties.Transmission.ToLower() == input).ToList();
             }
-            if (choice == "mileage")
+            if (choiceInput == "mileage")
             {
                 carList = carList.Where(b => (b.Properties.Mileage <= int.Parse(input))).ToList();
             }
@@ -129,7 +129,7 @@ namespace CarStore
             string input = Console.ReadLine().ToUpper().Trim();
             if (input == "YES" || input == "Y")
             {
-                ReadJsonFile(filePath);
+                ReadAndResetJsonFile(filePath);
                 WriteColoredLine("Filter is reset, print cars again to see all cars", ConsoleColor.DarkYellow);
             }
             else
@@ -203,7 +203,7 @@ namespace CarStore
                 switch (input.Key)
                 {
                     case ConsoleKey.D1:
-                        WriteColoredLine("Printing all cars", ConsoleColor.DarkYellow);
+                        WriteColoredLine("Printing cars", ConsoleColor.DarkYellow);
                         PrintCars(carList);
                         break;
                     case ConsoleKey.D2:
@@ -245,7 +245,7 @@ namespace CarStore
         public void DisplayOptions()
         {
             WriteColoredLine("\n" + "Main menu", ConsoleColor.DarkYellow);
-            WriteColoredLine("1 - Print all cars", ConsoleColor.DarkYellow);
+            WriteColoredLine("1 - Print cars", ConsoleColor.DarkYellow);
             WriteColoredLine("2 - Print cars paginated", ConsoleColor.DarkYellow);
             WriteColoredLine("3 - Print cars grouped by price", ConsoleColor.DarkYellow);
             WriteColoredLine("4 - Change currency and distance type", ConsoleColor.DarkYellow);
