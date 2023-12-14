@@ -80,47 +80,51 @@ namespace CarStore
 
         public void FilterCars()
         {
-            string[] availableChoices = ["brand", "model", "year (from)", "category", "transmission", "mileage (max)"];
-            Console.WriteLine("Available options to filter out are " + string.Join(", ", availableChoices));
+            string[] filters = ["brand", "model", "year (from)", "category", "transmission", "mileage (max)"];
+
+            Console.WriteLine("Available options to car out are " + string.Join(", ", filters));
             Console.WriteLine("Enter a option: ");
 
-            var choiceInput = Console.ReadLine().ToLower().Trim();
+            var filterChoice = Console.ReadLine().ToLower().Trim();
 
-            if (!availableChoices.Any(choice => choice.Split(" ")[0].ToLower().Trim() == choice))
+            if (!filters.Any(filter => filter.Split(" ")[0].ToLower().Trim() == filterChoice))
             {
                 WriteColoredLine("Invalid option", ConsoleColor.Red);
                 return;
             }
 
-            Console.WriteLine("Enter a " + choiceInput);
+            Console.WriteLine("Enter a " + filterChoice);
+            
             var input = Console.ReadLine().ToLower().Trim();
 
-            if (choiceInput == "brand")
+
+            switch (filterChoice)
             {
-                carList = carList.Where(b => b.Brand.ToLower() == input).ToList();
-            }
-            if (choiceInput == "model")
-            {
-                carList = carList.Where(b => b.Model.ToLower() == input).ToList();
-            }
-            if (choiceInput == "year")
-            {
-                carList = carList.Where(b => (b.Properties.Year >= int.Parse(input))).ToList();
-            }
-            if (choiceInput == "category")
-            {
-                carList = carList.Where(b => b.Category.ToLower() == input).ToList();
-            }
-            if (choiceInput == "transmission")
-            {
-                carList = carList.Where(b => b.Properties.Transmission.ToLower() == input).ToList();
-            }
-            if (choiceInput == "mileage")
-            {
-                carList = carList.Where(b => (b.Properties.Mileage <= int.Parse(input))).ToList();
+                case "brand":
+                    carList = carList.Where(b => b.Brand.ToLower() == input).ToList();
+                    break;
+                case "model":
+                    carList = carList.Where(b => b.Model.ToLower() == input).ToList();
+                    break;
+                case "year":
+                    carList = carList.Where(b => (b.Properties.Year >= int.Parse(input))).ToList();
+                    break;
+                case "category":
+                    carList = carList.Where(b => b.Category.ToLower() == input).ToList();
+                    break;
+                case "transmission":
+                    carList = carList.Where(b => b.Properties.Transmission.ToLower() == input).ToList();
+                    break;
+                case "mileage":
+                    carList = carList.Where(b => (b.Properties.Mileage <= int.Parse(input))).ToList();
+                    break;
+                default:
+                    WriteColoredLine("Invalid option!", ConsoleColor.Red);
+                    return;
             }
 
             PrintCars(carList);
+            ResetFilter();
         }
 
         public void ResetFilter()
@@ -219,7 +223,7 @@ namespace CarStore
                         ChangeCurrency();
                         break;
                     case ConsoleKey.D5:
-                        WriteColoredLine("Applying filter", ConsoleColor.DarkYellow);
+                        WriteColoredLine("Applying car", ConsoleColor.DarkYellow);
                         FilterCars();
                         break;
                     case ConsoleKey.D6:
@@ -249,7 +253,7 @@ namespace CarStore
             WriteColoredLine("2 - Print cars paginated", ConsoleColor.DarkYellow);
             WriteColoredLine("3 - Print cars grouped by price", ConsoleColor.DarkYellow);
             WriteColoredLine("4 - Change currency and distance type", ConsoleColor.DarkYellow);
-            WriteColoredLine("5 - Apply filter and list matching cars", ConsoleColor.DarkYellow);
+            WriteColoredLine("5 - Apply car and list matching cars", ConsoleColor.DarkYellow);
             WriteColoredLine("6 - Reset filter", ConsoleColor.DarkYellow);
             WriteColoredLine("q - Quit", ConsoleColor.DarkYellow);
         }
