@@ -82,7 +82,7 @@ namespace CarStore
         {
             string[] filters = ["brand", "model", "year (from)", "category", "transmission", "mileage (max)"];
 
-            Console.WriteLine("Available options to car out are " + string.Join(", ", filters));
+            Console.WriteLine("Available options to filter out are " + string.Join(", ", filters));
             Console.WriteLine("Enter a option: ");
 
             var filterChoice = Console.ReadLine().ToLower().Trim();
@@ -223,7 +223,7 @@ namespace CarStore
                         ChangeCurrency();
                         break;
                     case ConsoleKey.D5:
-                        WriteColoredLine("Applying car", ConsoleColor.DarkYellow);
+                        WriteColoredLine("Applying filter", ConsoleColor.DarkYellow);
                         FilterCars();
                         break;
                     case ConsoleKey.D6:
@@ -253,7 +253,7 @@ namespace CarStore
             WriteColoredLine("2 - Print cars paginated", ConsoleColor.DarkYellow);
             WriteColoredLine("3 - Print cars grouped by price", ConsoleColor.DarkYellow);
             WriteColoredLine("4 - Change currency and distance type", ConsoleColor.DarkYellow);
-            WriteColoredLine("5 - Apply car and list matching cars", ConsoleColor.DarkYellow);
+            WriteColoredLine("5 - Apply filter and list matching cars", ConsoleColor.DarkYellow);
             WriteColoredLine("6 - Reset filter", ConsoleColor.DarkYellow);
             WriteColoredLine("q - Quit", ConsoleColor.DarkYellow);
         }
