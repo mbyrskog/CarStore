@@ -94,9 +94,7 @@ namespace CarStore
             }
 
             Console.WriteLine("Enter a " + filterChoice);
-            
             var input = Console.ReadLine().ToLower().Trim();
-
 
             switch (filterChoice)
             {
@@ -123,8 +121,19 @@ namespace CarStore
                     return;
             }
 
-            PrintCars(carList);
-            ResetFilter();
+            // Check for property instead
+            if (carList.Count() < 1)
+            {
+                WriteColoredLine("Invalid " + filterChoice, ConsoleColor.Red);
+                ReadAndResetJsonFile(filePath);
+            }
+            else
+            {
+                WriteColoredLine("Printing with filter: " + filterChoice + " " + input + ". Don't forget to reset the filter.", ConsoleColor.DarkYellow);
+                PrintCars(carList);
+
+            }
+
         }
 
         public void ResetFilter()
