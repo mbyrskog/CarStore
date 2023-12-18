@@ -99,37 +99,33 @@ namespace CarStore
             switch (filterChoice)
             {
                 case "brand":
-                    carList = carList.Where(b => b.Brand.ToLower() == input).ToList();
+                    carList = carList.Where(b => b.Brand.ToLower().Contains(input)).ToList();
                     break;
                 case "model":
-                    carList = carList.Where(b => b.Model.ToLower() == input).ToList();
+                    carList = carList.Where(b => b.Model.ToLower().Contains(input)).ToList();
                     break;
                 case "year":
                     carList = carList.Where(b => (b.Properties.Year >= int.Parse(input))).ToList();
                     break;
                 case "category":
-                    carList = carList.Where(b => b.Category.ToLower() == input).ToList();
+                    carList = carList.Where(b => b.Category.ToLower().Contains(input)).ToList();
                     break;
                 case "transmission":
-                    carList = carList.Where(b => b.Properties.Transmission.ToLower() == input).ToList();
+                    carList = carList.Where(b => b.Properties.Transmission.ToLower().Contains(input)).ToList();
                     break;
                 case "mileage":
                     carList = carList.Where(b => (b.Properties.Mileage <= int.Parse(input))).ToList();
                     break;
-                default:
-                    WriteColoredLine("Invalid option!", ConsoleColor.Red);
-                    return;
             }
 
-            // Check for property instead
             if (carList.Count() < 1)
             {
-                WriteColoredLine("Invalid " + filterChoice, ConsoleColor.Red);
+                WriteColoredLine("No cars with " + filterChoice + ": " + input + " exists", ConsoleColor.Red);
                 ReadAndResetJsonFile(filePath);
             }
             else
             {
-                WriteColoredLine("Printing with filter: " + filterChoice + " " + input + ". Don't forget to reset the filter.", ConsoleColor.DarkYellow);
+                WriteColoredLine("Printing cars with " + filterChoice + ": " + input + ". Don't forget to reset the filter.", ConsoleColor.DarkYellow);
                 PrintCars(carList);
 
             }
