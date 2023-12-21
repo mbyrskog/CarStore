@@ -12,9 +12,7 @@ namespace CarStore
 
         public DoStuff()
         {
-            //Console.WindowWidth = Console.LargestWindowWidth;
-            //Console.WindowHeight = Console.LargestWindowHeight;
-            //Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
+            Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
             ReadAndResetJsonFile(filePath);
         }
 
@@ -127,7 +125,6 @@ namespace CarStore
             {
                 WriteColoredLine("Printing cars with " + filterChoice + ": " + input + ". Don't forget to reset the filter.", ConsoleColor.DarkYellow);
                 PrintCars(carList);
-
             }
 
         }
