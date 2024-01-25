@@ -184,6 +184,10 @@ namespace CarStore
                     break;
                 default:
                     WriteColoredLine("Invalid option!", ConsoleColor.Red);
+                    WriteColoredLine("Currency has been reset to USD, and distance type to miles", ConsoleColor.Red);
+                    currencyRate = 1.0;
+                    distanceType = 1.0;
+                    currencyName = "USD";   
                     return;
             }
             WriteColoredLine("Currency converted to " + currencyName + ", print the cars to see the result.", ConsoleColor.DarkYellow);
