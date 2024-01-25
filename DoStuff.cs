@@ -5,26 +5,35 @@ namespace CarStore
     public class DoStuff : IDoStuff
     {
         private readonly string filePath = "cars.json";
-        private readonly List<Car> carList = [];
+        private List<Car> carList = [];
         private double currencyRate = 1.0;
         private string currencyName = "USD";
         private double distanceType = 1.0;
 
         public DoStuff()
         {
-            StreamReader r = new StreamReader(filePath);
-            var json = r.ReadToEnd();
+            Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
+            ReadAndResetJsonFile(filePath);
+        }
+
+        public void ReadAndResetJsonFile(string filePath)
+        {
+            carList.Clear();
+            var reader = new StreamReader(filePath);
+            reader.DiscardBufferedData();
+            var json = reader.ReadToEnd();
             carList = JsonConvert.DeserializeObject<List<Car>>(json);
         }
 
-        public void PrintCars(IEnumerable<Car> carStore)
+        public void PrintCars(IEnumerable<Car> carList)
         {
             WriteColoredLine(GetTableHeader(currencyName), ConsoleColor.DarkYellow);
 
-            foreach (var item in carStore)
+            foreach (var item in carList)
             {
                 Console.Write(item.Brand.PadRight(20) + item.Model.PadRight(20));
                 Console.Write(item.Properties.Year.ToString().PadRight(20));
+                Console.Write(item.Category.PadRight(20) + item.Properties.Transmission.PadRight(20));
                 Console.Write(Math.Round((item.Properties.Mileage * distanceType), 2).ToString().PadRight(20));
                 Console.WriteLine((string.Format("{0:0.00}", item.Price * currencyRate) + " " + currencyName));
                 Thread.Sleep(20);
@@ -67,9 +76,84 @@ namespace CarStore
             }
         }
 
+        public void FilterCars()
+        {
+            string[] filters = ["brand", "model", "year (from)", "category", "transmission", "mileage (max)"];
+
+            Console.WriteLine("Available options to filter out are " + string.Join(", ", filters));
+            Console.WriteLine("Enter a option: ");
+
+            var filterChoice = Console.ReadLine().ToLower().Trim();
+
+            if (!filters.Any(filter => filter.Split(" ")[0].ToLower().Trim() == filterChoice))
+            {
+                WriteColoredLine("Invalid option", ConsoleColor.Red);
+                return;
+            }
+
+            Console.WriteLine("Enter a " + filterChoice);
+            var input = Console.ReadLine().ToLower().Trim();
+
+            switch (filterChoice)
+            {
+                case "brand":
+                    carList = carList.Where(b => b.Brand.ToLower().Contains(input)).ToList();
+                    break;
+                case "model":
+                    carList = carList.Where(b => b.Model.ToLower().Contains(input)).ToList();
+                    break;
+                case "year":
+                    carList = carList.Where(b => (b.Properties.Year >= int.Parse(input))).ToList();
+                    break;
+                case "category":
+                    carList = carList.Where(b => b.Category.ToLower().Contains(input)).ToList();
+                    break;
+                case "transmission":
+                    carList = carList.Where(b => b.Properties.Transmission.ToLower().Contains(input)).ToList();
+                    break;
+                case "mileage":
+                    carList = carList.Where(b => (b.Properties.Mileage <= int.Parse(input))).ToList();
+                    break;
+            }
+
+            if (carList.Count() < 1)
+            {
+                WriteColoredLine("No cars with " + filterChoice + ": " + input + " exists", ConsoleColor.Red);
+                ReadAndResetJsonFile(filePath);
+            }
+            else
+            {
+                WriteColoredLine("Printing cars with " + filterChoice + ": " + input + ". Don't forget to reset the filter.", ConsoleColor.DarkYellow);
+                PrintCars(carList);
+            }
+
+        }
+
+        public void ResetFilter()
+        {
+            Console.WriteLine("Reset filter? yes/no");
+            string input = Console.ReadLine().ToUpper().Trim();
+            if (input == "YES" || input == "Y")
+            {
+                ReadAndResetJsonFile(filePath);
+                WriteColoredLine("Filter is reset, print cars again to see all cars", ConsoleColor.DarkYellow);
+            }
+            else
+            {
+                WriteColoredLine("Filter is not reset", ConsoleColor.DarkYellow);
+                return;
+            }
+        }
+
         public string GetTableHeader(string currencyName)
         {
-            return ("Brand".PadRight(20) + "Model".PadRight(20) + "Year".PadRight(20) +
+            return
+                (
+                "Brand".PadRight(20) +
+                "Model".PadRight(20) +
+                "Year".PadRight(20) +
+                "Category".PadRight(20) +
+                "Transmission".PadRight(20) +
                 (currencyName == "USD" || currencyName == "GBP" ? "Miles".PadRight(20) : "Mil".PadRight(20)) + "Price");
         }
 
@@ -125,7 +209,7 @@ namespace CarStore
                 switch (input.Key)
                 {
                     case ConsoleKey.D1:
-                        WriteColoredLine("Printing all cars", ConsoleColor.DarkYellow);
+                        WriteColoredLine("Printing cars", ConsoleColor.DarkYellow);
                         PrintCars(carList);
                         break;
                     case ConsoleKey.D2:
@@ -139,6 +223,14 @@ namespace CarStore
                     case ConsoleKey.D4:
                         WriteColoredLine("Changing currency and distance type", ConsoleColor.DarkYellow);
                         ChangeCurrency();
+                        break;
+                    case ConsoleKey.D5:
+                        WriteColoredLine("Applying filter", ConsoleColor.DarkYellow);
+                        FilterCars();
+                        break;
+                    case ConsoleKey.D6:
+                        WriteColoredLine("Reset filter", ConsoleColor.DarkYellow);
+                        ResetFilter();
                         break;
                     case ConsoleKey.Q:
                         shouldRun = false;
@@ -159,10 +251,12 @@ namespace CarStore
         public void DisplayOptions()
         {
             WriteColoredLine("\n" + "Main menu", ConsoleColor.DarkYellow);
-            WriteColoredLine("1 - Print all cars", ConsoleColor.DarkYellow);
+            WriteColoredLine("1 - Print cars", ConsoleColor.DarkYellow);
             WriteColoredLine("2 - Print cars paginated", ConsoleColor.DarkYellow);
             WriteColoredLine("3 - Print cars grouped by price", ConsoleColor.DarkYellow);
             WriteColoredLine("4 - Change currency and distance type", ConsoleColor.DarkYellow);
+            WriteColoredLine("5 - Apply filter and list matching cars", ConsoleColor.DarkYellow);
+            WriteColoredLine("6 - Reset filter", ConsoleColor.DarkYellow);
             WriteColoredLine("q - Quit", ConsoleColor.DarkYellow);
         }
     }
