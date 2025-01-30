@@ -1,0 +1,400 @@
+[
+  {
+    "id": "8a3ec5a0-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Toyota",
+    "Model": "Corolla",
+    "Price": 22000,
+    "Category": "Sedan",
+    "Properties": {
+      "Year": 2022,
+      "Mileage": 15000,
+      "Color": "White",
+      "Transmission": "Automatic",
+      "Fuel": "Gasoline",
+      "Effect": {
+        "KiloWatt": 80,
+        "Horsepower": 107
+      }
+    }
+  },
+  {
+    "id": "8a3ee66a-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Honda",
+    "Model": "Civic",
+    "Price": 23000,
+    "Category": "Hatchback",
+    "Properties": {
+      "Year": 2021,
+      "Mileage": 18000,
+      "Color": "Blue",
+      "Transmission": "Manual",
+      "Fuel": "Gasoline",
+      "Effect": {
+        "KiloWatt": 92,
+        "Horsepower": 123
+      }
+    }
+  },
+  {
+    "id": "8a3eea78-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Chevrolet",
+    "Model": "Camaro",
+    "Price": 35000,
+    "Category": "SportsCoupe",
+    "Properties": {
+      "Year": 2021,
+      "Mileage": 12000,
+      "Color": "Red",
+      "Transmission": "Manual",
+      "Fuel": "Gasoline",
+      "Effect": {
+        "KiloWatt": 300,
+        "Horsepower": 402
+      }
+    }
+  },
+  {
+    "id": "8a3eec02-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Tesla",
+    "Model": "Model 3",
+    "Price": 50000,
+    "Category": "Sedan",
+    "Properties": {
+      "Year": 2022,
+      "Mileage": 8000,
+      "Color": "Black",
+      "Transmission": "Automatic",
+      "Fuel": "Electric",
+      "Effect": {
+        "KiloWatt": 150,
+        "Horsepower": 201
+      }
+    }
+  },
+  {
+    "id": "8a3eed1c-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Jeep",
+    "Model": "Wrangler",
+    "Price": 32000,
+    "Category": "SUV",
+    "Properties": {
+      "Year": 2020,
+      "Mileage": 25000,
+      "Color": "Green",
+      "Transmission": "Manual",
+      "Fuel": "Gasoline",
+      "Effect": {
+        "KiloWatt": 120,
+        "Horsepower": 161
+      }
+    }
+  },
+  {
+    "id": "8a3ef11e-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "BMW",
+    "Model": "X5",
+    "Price": 60000,
+    "Category": "SUV",
+    "Properties": {
+      "Year": 2021,
+      "Mileage": 16000,
+      "Color": "White",
+      "Transmission": "Automatic",
+      "Fuel": "Diesel",
+      "Effect": {
+        "KiloWatt": 180,
+        "Horsepower": 224
+      }
+    }
+  },
+  {
+    "id": "8a3ef328-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Audi",
+    "Model": "A4",
+    "Price": 40000,
+    "Category": "Sedan",
+    "Properties": {
+      "Year": 2022,
+      "Mileage": 12000,
+      "Color": "Gray",
+      "Transmission": "Automatic",
+      "Fuel": "Gasoline",
+      "Effect": {
+        "KiloWatt": 120,
+        "Horsepower": 161
+      }
+    }
+  },
+  {
+    "id": "8a3ef44a-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Volkswagen",
+    "Model": "Golf",
+    "Price": 25000,
+    "Category": "Hatchback",
+    "Properties": {
+      "Year": 2020,
+      "Mileage": 22000,
+      "Color": "Yellow",
+      "Transmission": "Automatic",
+      "Fuel": "Gasoline",
+      "Effect": {
+        "KiloWatt": 80,
+        "Horsepower": 107
+      }
+    }
+  },
+
+  {
+    "id": "8a3ec5a0-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Toyota",
+    "Model": "Corolla",
+    "Price": 22000,
+    "Category": "Sedan",
+    "Properties": {
+      "Year": 2022,
+      "Mileage": 15000,
+      "Color": "White",
+      "Transmission": "Automatic",
+      "Fuel": "Gasoline",
+      "Effect": {
+        "KiloWatt": 80,
+        "Horsepower": 107
+      }
+    }
+  },
+  {
+    "id": "8a3ee66a-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Honda",
+    "Model": "Civic",
+    "Price": 23000,
+    "Category": "Hatchback",
+    "Properties": {
+      "Year": 2021,
+      "Mileage": 18000,
+      "Color": "Blue",
+      "Transmission": "Manual",
+      "Fuel": "Gasoline",
+      "Effect": {
+        "KiloWatt": 92,
+        "Horsepower": 123
+      }
+    }
+  },
+  {
+    "id": "8a3ee864-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Ford",
+    "Model": "Escape",
+    "Price": 27000,
+    "Category": "SUV",
+    "Properties": {
+      "Year": 2020,
+      "Mileage": 20000,
+      "Color": "Silver",
+      "Transmission": "Automatic",
+      "Fuel": "Hybrid",
+      "Effect": {
+        "KiloWatt": 110,
+        "Horsepower": 147
+      }
+    }
+  },
+  {
+    "id": "8a3eea78-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Chevrolet",
+    "Model": "Camaro",
+    "Price": 35000,
+    "Category": "SportsCoupe",
+    "Properties": {
+      "Year": 2021,
+      "Mileage": 12000,
+      "Color": "Red",
+      "Transmission": "Manual",
+      "Fuel": "Gasoline",
+      "Effect": {
+        "KiloWatt": 300,
+        "Horsepower": 402
+      }
+    }
+  },
+  {
+    "id": "8a3eec02-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Tesla",
+    "Model": "Model 3",
+    "Price": 50000,
+    "Category": "Sedan",
+    "Properties": {
+      "Year": 2022,
+      "Mileage": 8000,
+      "Color": "Black",
+      "Transmission": "Automatic",
+      "Fuel": "Electric",
+      "Effect": {
+        "KiloWatt": 150,
+        "Horsepower": 201
+      }
+    }
+  },
+  {
+    "id": "8a3eef14-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Mercedes-Benz",
+    "Model": "C-Class",
+    "Price": 45000,
+    "Category": "Sedan",
+    "Properties": {
+      "Year": 2022,
+      "Mileage": 10000,
+      "Color": "Silver",
+      "Transmission": "Automatic",
+      "Fuel": "Diesel",
+      "Effect": {
+        "KiloWatt": 120,
+        "Horsepower": 161
+      }
+    }
+  },
+  {
+    "id": "8a3ef0e8-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "BMW",
+    "Model": "X5",
+    "Price": 60000,
+    "Category": "SUV",
+    "Properties": {
+      "Year": 2021,
+      "Mileage": 15000,
+      "Color": "Blue",
+      "Transmission": "Automatic",
+      "Fuel": "Gasoline",
+      "Effect": {
+        "KiloWatt": 180,
+        "Horsepower": 241
+      }
+    }
+  },
+  {
+    "id": "8a3ef1dc-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Audi",
+    "Model": "A4",
+    "Price": 38000,
+    "Category": "Sedan",
+    "Properties": {
+      "Year": 2020,
+      "Mileage": 18000,
+      "Color": "Gray",
+      "Transmission": "Automatic",
+      "Fuel": "Diesel",
+      "Effect": {
+        "KiloWatt": 110,
+        "Horsepower": 147
+      }
+    }
+  },
+  {
+    "id": "8a3ef35a-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Volkswagen",
+    "Model": "Golf",
+    "Price": 25000,
+    "Category": "Hatchback",
+    "Properties": {
+      "Year": 2022,
+      "Mileage": 12000,
+      "Color": "White",
+      "Transmission": "Automatic",
+      "Fuel": "Electric",
+      "Effect": {
+        "KiloWatt": 100,
+        "Horsepower": 134
+      }
+    }
+  },
+  {
+    "id": "8a3ef48a-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Hyundai",
+    "Model": "Tucson",
+    "Price": 28000,
+    "Category": "SUV",
+    "Properties": {
+      "Year": 2021,
+      "Mileage": 15000,
+      "Color": "Red",
+      "Transmission": "Automatic",
+      "Fuel": "Hybrid",
+      "Effect": {
+        "KiloWatt": 120,
+        "Horsepower": 161
+      }
+    }
+  },
+  {
+    "id": "8a3ef5c8-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Subaru",
+    "Model": "Outback",
+    "Price": 30000,
+    "Category": "Combi",
+    "Properties": {
+      "Year": 2020,
+      "Mileage": 20000,
+      "Color": "Green",
+      "Transmission": "Automatic",
+      "Fuel": "Gasoline",
+      "Effect": {
+        "KiloWatt": 110,
+        "Horsepower": 147
+      }
+    }
+  },
+  {
+    "id": "8a3ef6f8-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Kia",
+    "Model": "Sportage",
+    "Price": 26000,
+    "Category": "SUV",
+    "Properties": {
+      "Year": 2021,
+      "Mileage": 18000,
+      "Color": "Black",
+      "Transmission": "Manual",
+      "Fuel": "Gasoline",
+      "Effect": {
+        "KiloWatt": 92,
+        "Horsepower": 123
+      }
+    }
+  },
+  {
+    "id": "8a3ef824-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Mazda",
+    "Model": "CX-5",
+    "Price": 32000,
+    "Category": "SUV",
+    "Properties": {
+      "Year": 2022,
+      "Mileage": 15000,
+      "Color": "Blue",
+      "Transmission": "Automatic",
+      "Fuel": "Gasoline",
+      "Effect": {
+        "KiloWatt": 120,
+        "Horsepower": 161
+      }
+    }
+  },
+  {
+    "id": "8a3ef956-4a6a-11ec-9d67-0f8fe8f2b3e2",
+    "Brand": "Nissan",
+    "Model": "Altima",
+    "Price": 25000,
+    "Category": "Sedan",
+    "Properties": {
+      "Year": 2020,
+      "Mileage": 22000,
+      "Color": "Silver",
+      "Transmission": "Automatic",
+      "Fuel": "Gasoline",
+      "Effect": {
+        "KiloWatt": 100,
+        "Horsepower": 134
+      }
+    }
+  }
+
+]
