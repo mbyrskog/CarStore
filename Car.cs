@@ -3,7 +3,7 @@
     public class Effect
     {
         public int KiloWatt { get; set; }
-        public int Horsepower { get; set; }
+        public int HorsePower { get; set; }
     }
 
     public class Properties
